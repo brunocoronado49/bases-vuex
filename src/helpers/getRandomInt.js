@@ -3,7 +3,7 @@ const getRandomInt = () => {
         const randomInt = Math.floor((Math.random() * 20) + 1)
         setTimeout(() => {
             resolve(randomInt)
-        }, 1000)
+        }, 2000)
     })
 }
 

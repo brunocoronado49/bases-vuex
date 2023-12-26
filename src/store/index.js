@@ -21,15 +21,25 @@ export default createStore({
             state.count += value
             state.lastMutation = `IncrementBy: ${value}`
             state.lastRandomInt = value
-        }
+        },
+        setLoading(state, value) {
+            state.isLoading = value
+            state.lastMutation = 'SetLoading'
+        },
     },
     // Son metodos que pueden ser asincronos
     actions: {
-        async incrementRandomInt(context) {
+        async incrementRandomInt({ commit }) {
+            commit('setLoading', true)
             const rndInt = await getRandomInt()
-
             // Para llamar una mutasion se usa lo siguiente
-            context.commit('incrementBy', rndInt)
+            commit('incrementBy', rndInt)
+            commit('setLoading', false)
+        }
+    },
+    getters: {
+        squareCount(state) {
+            return state.count * state.count
         }
     },
 })
